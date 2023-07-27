@@ -1,5 +1,3 @@
-import random
-from random import choice
 from copy import deepcopy
 from numpy.random import default_rng
 
@@ -36,11 +34,8 @@ class Puzzle:
             x2 = rng.integers(0, 4)
             y1 = rng.integers(0, 4)
             y2 = rng.integers(0, 4)
-            self.board[x1][y1], self.board[x2][y2] = self.board[x2][y2], self.board[x1][y1]
-        for i in range(4):
-            for j in range(4):
-                if self.board[i][j] == 0:
-                    self.blankPos = (i, j)
+            if self.board[x1][y1] != 0 and self.board[x2][y2] != 0:
+                self.board[x1][y1], self.board[x2][y2] = self.board[x2][y2], self.board[x1][y1]
 
     def isSolvable(self):
         num = [0] * 16

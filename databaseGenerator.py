@@ -1,4 +1,4 @@
-import model
+import boardModel
 import pickle
 from collections import deque
 from multiprocessing import Pool
@@ -8,7 +8,7 @@ NANO_TO_SEC = 1000000000
 
 def buildPatternDb(boardSize, group):
     # starting position
-    puzzle = model.Puzzle(boardSize, shuffle=False)
+    puzzle = boardModel.Puzzle(boardSize, shuffle=False)
     # number of moves = 0
     puzzle.count = 0
 
@@ -81,7 +81,7 @@ def main():
     closedList = []
 
     with Pool(processes=3) as pool:
-        results = [pool.apply_async(buildPatternDb, (boardSize, groups[i], i)) for i in range(len(groups))]
+        results = [pool.apply_async(buildPatternDb, (boardSize, group)) for group in groups]
         results = [res.get() for res in results]
 
         for res in results:
